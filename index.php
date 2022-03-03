@@ -144,7 +144,6 @@ function filter_data()
     var minimum_price = $('#hidden_minimum_price').val();
     var maximum_price = $('#hidden_maximum_price').val();
     var kind = get_filter('kind');
-    var ram = get_filter('ram');
     var storage = get_filter('storage');
     $.ajax({
         url:"fetch_data.php",
