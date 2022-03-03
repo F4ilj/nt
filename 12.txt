@@ -1,0 +1,83 @@
+<form method="post">
+
+<select class="ksel_add" name="kind">
+<option value="All" <?if(isset($_POST['kind']) and 'All' == $_POST['kind']):?>selected="selected"<?endif?> class="opt_k">Всё</option>
+<option value="Button" <?if(isset($_POST['kind']) and 'Button' == $_POST['kind']):?>selected="selected"<?endif?>>Кнопка</option>
+<option value="Chip" <?if(isset($_POST['kind']) and 'Chip' == $_POST['kind']):?>selected="selected"<?endif?>>Микросхема</option>
+<option value="Controller" <?if(isset($_POST['kind']) and 'Controller' == $_POST['kind']):?>selected="selected"<?endif?>>Контроллер</option>
+<option value="Sensor" <?if(isset($_POST['kind']) and 'Sensor' == $_POST['kind']):?>selected="selected"<?endif?>>Датчик</option>
+</select>
+
+<input type="submit" name="submit" value="Выбрать">
+
+</form>
+
+<?php
+    if (isset($_POST['submit'])) {
+        $uy = $_POST['kind'];
+    }
+        
+
+            if($uy == 'Button') {
+                $sql = "SELECT * FROM `components` WHERE kind = '$uy' ORDER BY `id` DESC"; 
+            } elseif($uy == 'Chip') {
+                $sql = "SELECT * FROM `components` WHERE kind = '$uy' ORDER BY `id` DESC";
+            } elseif($uy == 'Controller') {
+                $sql = "SELECT * FROM `components` WHERE kind = '$uy' ORDER BY `id` DESC";
+            } elseif($uy == 'Sensor') {
+                $sql = "SELECT * FROM `components` WHERE kind = '$uy' ORDER BY `id` DESC";
+            } else {
+                $sql = "SELECT * FROM `components` ORDER BY `id` DESC" ;
+            }
+            
+			$res = mysqli_query($connect, $sql);
+			while ( $row = mysqli_fetch_assoc($res) ) {
+				$id = $row['id'];
+                $name = $row['name'];
+				$text = $row['text'];
+                $path = $row['image']
+				?>
+					
+                    
+
+                    <div class="post">
+	
+                    <a href="component.php?id=<?=$id;?>"><div class="img_pst"><img src="<?=$path;?>" alt=""></div></a>
+
+                        
+                        
+                        <div class="wrp_pst">
+                        <p class="id_pst">#<?=$id;?> <a href="comp_upd.php?id=<?=$id;?>"> <img class="ind_svg" src="./uploads/svg/mdi_pencil.svg" alt=""> </a>
+                        <a href="act/del.php?id=<?=$id;?>"> <img class="ind_svg" src="./uploads/svg/mdi_delete.svg" alt=""> </a></p> 
+                        <a href="component.php?id=<?=$id;?>"><p class="name_pst"><?=$name;?></p></a>
+                        <a href="component.php?id=<?=$id;?>"><p class="text_pst"><?=$text;?></p></a>
+
+                        </div>
+					</div>
+				<?php 
+			}
+?>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .prf {
+    width: 118px;
+    height: 40px;
+    background: url(../<?= $_SESSION['user']['avatar']?>);
+    background-position: center;
+    background-size: cover;
+    border: none;
+
+    }
